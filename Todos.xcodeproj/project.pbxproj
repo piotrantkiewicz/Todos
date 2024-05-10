@@ -12,6 +12,11 @@
 		AE51AFF22BEBB76E00108FF2 /* AddTodoListColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE51AFF02BEBB76E00108FF2 /* AddTodoListColorPickerCell.xib */; };
 		AE51AFF62BEBB91100108FF2 /* ColorOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE51AFF42BEBB91100108FF2 /* ColorOptionCell.swift */; };
 		AE51AFF72BEBB91100108FF2 /* ColorOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE51AFF52BEBB91100108FF2 /* ColorOptionCell.xib */; };
+		AE9322252BED6986004CB1E7 /* AddTodoListIconPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9322232BED6986004CB1E7 /* AddTodoListIconPickerCell.swift */; };
+		AE9322262BED6986004CB1E7 /* AddTodoListIconPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE9322242BED6986004CB1E7 /* AddTodoListIconPickerCell.xib */; };
+		AE93222A2BED6AD3004CB1E7 /* IconOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9322282BED6AD3004CB1E7 /* IconOptionCell.swift */; };
+		AE93222B2BED6AD3004CB1E7 /* IconOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE9322292BED6AD3004CB1E7 /* IconOptionCell.xib */; };
+		AE9322312BED6D93004CB1E7 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9322302BED6D93004CB1E7 /* UIColor+hex.swift */; };
 		AEDC7DE82BE4D07100FA7D2B /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDC7DE62BE4D07100FA7D2B /* TodoListCell.swift */; };
 		AEDC7DE92BE4D07100FA7D2B /* TodoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEDC7DE72BE4D07100FA7D2B /* TodoListCell.xib */; };
 		AEDC7DEF2BE4ED2A00FA7D2B /* TodoListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDC7DED2BE4ED2A00FA7D2B /* TodoListItemCell.swift */; };
@@ -31,6 +36,11 @@
 		AE51AFF02BEBB76E00108FF2 /* AddTodoListColorPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTodoListColorPickerCell.xib; sourceTree = "<group>"; };
 		AE51AFF42BEBB91100108FF2 /* ColorOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionCell.swift; sourceTree = "<group>"; };
 		AE51AFF52BEBB91100108FF2 /* ColorOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorOptionCell.xib; sourceTree = "<group>"; };
+		AE9322232BED6986004CB1E7 /* AddTodoListIconPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoListIconPickerCell.swift; sourceTree = "<group>"; };
+		AE9322242BED6986004CB1E7 /* AddTodoListIconPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTodoListIconPickerCell.xib; sourceTree = "<group>"; };
+		AE9322282BED6AD3004CB1E7 /* IconOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconOptionCell.swift; sourceTree = "<group>"; };
+		AE9322292BED6AD3004CB1E7 /* IconOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconOptionCell.xib; sourceTree = "<group>"; };
+		AE9322302BED6D93004CB1E7 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		AEDC7DE62BE4D07100FA7D2B /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		AEDC7DE72BE4D07100FA7D2B /* TodoListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoListCell.xib; sourceTree = "<group>"; };
 		AEDC7DED2BE4ED2A00FA7D2B /* TodoListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListItemCell.swift; sourceTree = "<group>"; };
@@ -78,6 +88,7 @@
 		AE34891F2BEA3367003EFE4B /* AddList */ = {
 			isa = PBXGroup;
 			children = (
+				AE93221E2BED6906004CB1E7 /* AddTodoListIconPickerCell */,
 				AE51AFEE2BEBB74500108FF2 /* AddTodoListColorPickerCell */,
 				AE3489202BEA337D003EFE4B /* AddListViewController.swift */,
 			);
@@ -101,6 +112,33 @@
 				AE51AFF52BEBB91100108FF2 /* ColorOptionCell.xib */,
 			);
 			path = ColorOptionCell;
+			sourceTree = "<group>";
+		};
+		AE93221E2BED6906004CB1E7 /* AddTodoListIconPickerCell */ = {
+			isa = PBXGroup;
+			children = (
+				AE9322272BED6AA4004CB1E7 /* IconOptionCell */,
+				AE9322232BED6986004CB1E7 /* AddTodoListIconPickerCell.swift */,
+				AE9322242BED6986004CB1E7 /* AddTodoListIconPickerCell.xib */,
+			);
+			path = AddTodoListIconPickerCell;
+			sourceTree = "<group>";
+		};
+		AE9322272BED6AA4004CB1E7 /* IconOptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				AE9322282BED6AD3004CB1E7 /* IconOptionCell.swift */,
+				AE9322292BED6AD3004CB1E7 /* IconOptionCell.xib */,
+			);
+			path = IconOptionCell;
+			sourceTree = "<group>";
+		};
+		AE93222C2BED6CB9004CB1E7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				AE9322302BED6D93004CB1E7 /* UIColor+hex.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		AEDC7DE52BE4D00900FA7D2B /* TodoListCell */ = {
@@ -140,6 +178,7 @@
 		AEE1E8042BE39DF90054FA50 /* Todos */ = {
 			isa = PBXGroup;
 			children = (
+				AE93222C2BED6CB9004CB1E7 /* Util */,
 				AE34891F2BEA3367003EFE4B /* AddList */,
 				AE34891E2BEA334A003EFE4B /* TodoList */,
 				AE34891D2BEA3330003EFE4B /* MyTodos */,
@@ -211,9 +250,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE9322262BED6986004CB1E7 /* AddTodoListIconPickerCell.xib in Resources */,
 				AEE1E80F2BE39DFA0054FA50 /* Assets.xcassets in Resources */,
 				AEE1E8122BE39DFA0054FA50 /* Base in Resources */,
 				AEE1E80D2BE39DF90054FA50 /* Base in Resources */,
+				AE93222B2BED6AD3004CB1E7 /* IconOptionCell.xib in Resources */,
 				AE51AFF72BEBB91100108FF2 /* ColorOptionCell.xib in Resources */,
 				AE51AFF22BEBB76E00108FF2 /* AddTodoListColorPickerCell.xib in Resources */,
 				AEDC7DF02BE4ED2A00FA7D2B /* TodoListItemCell.xib in Resources */,
@@ -228,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE9322252BED6986004CB1E7 /* AddTodoListIconPickerCell.swift in Sources */,
 				AEE1E81C2BE3A3900054FA50 /* TodoListViewController.swift in Sources */,
 				AEDC7DE82BE4D07100FA7D2B /* TodoListCell.swift in Sources */,
 				AE3489212BEA337D003EFE4B /* AddListViewController.swift in Sources */,
@@ -236,7 +278,9 @@
 				AEE1E81A2BE39E280054FA50 /* MyTodosViewController.swift in Sources */,
 				AEE1E8062BE39DF90054FA50 /* AppDelegate.swift in Sources */,
 				AE51AFF12BEBB76E00108FF2 /* AddTodoListColorPickerCell.swift in Sources */,
+				AE9322312BED6D93004CB1E7 /* UIColor+hex.swift in Sources */,
 				AEE1E8082BE39DF90054FA50 /* SceneDelegate.swift in Sources */,
+				AE93222A2BED6AD3004CB1E7 /* IconOptionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

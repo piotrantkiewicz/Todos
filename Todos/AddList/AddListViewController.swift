@@ -13,6 +13,9 @@ class AddListViewController: UIViewController {
     private var colors: [UIColor] = []
     private var selectedColor: UIColor = .clear
     
+    private var icons = [UIImage]()
+    private var selectedIcon = UIImage()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,6 +57,7 @@ class AddListViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "AddTodoListColorPickerCell", bundle: nil), forCellReuseIdentifier: "AddTodoListColorPickerCell")
+        tableView.register(UINib(nibName: "AddTodoListIconPickerCell", bundle: nil), forCellReuseIdentifier: "AddTodoListIconPickerCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,19 +124,35 @@ class AddListViewController: UIViewController {
 
 extension AddListViewController: UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddTodoListColorPickerCell") as? AddTodoListColorPickerCell else { return UITableViewCell() }
-        
-        cell.configure(with: colors, selectedColor: selectedColor)
-        cell.didSelectColor = { [weak self] selectedColor in
-            self?.setSelectedColor(selectedColor, animated: true)
+       
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddTodoListColorPickerCell") as? AddTodoListColorPickerCell else { return UITableViewCell() }
+            
+            cell.configure(with: colors, selectedColor: selectedColor)
+            cell.didSelectColor = { [weak self] selectedColor in
+                self?.setSelectedColor(selectedColor, animated: true)
+            }
+            
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddTodoListIconPickerCell") as? AddTodoListIconPickerCell else { return UITableViewCell() }
+            
+            cell.configure(with: icons, selectedIcon: selectedIcon)
+            
+            return cell
         }
         
-        return cell
+
     }
 }
 
