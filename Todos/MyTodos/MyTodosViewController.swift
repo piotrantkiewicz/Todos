@@ -5,14 +5,14 @@ class MyTodosViewController: UIViewController {
     @IBOutlet weak var addListBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var lists: [TodoList] = []
+    var dataSource: [TodoList] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addListBtn.setCornerRadius(14)
         
-        lists = myTodoList()
+        dataSource = myTodoList()
         configureTableView()
     }
     
@@ -38,21 +38,21 @@ class MyTodosViewController: UIViewController {
         
         lists.append(TodoList(
             title: "Groceries",
-            image: .avocado,
+            image: .avocadoIcon,
             color: .greenTodo,
             items: groceriesItems()
         ))
         
         lists.append(TodoList(
             title: "Vacation",
-            image: .vacation,
+            image: .vacationIcon,
             color: .redTodo,
             items: vacationItems()
         ))
         
         lists.append(TodoList(
             title: "House Chores",
-            image: .chores,
+            image: .choresIcon,
             color: .blueTodo,
             items: choresItems()
         ))
@@ -91,6 +91,11 @@ class MyTodosViewController: UIViewController {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "AddListViewController") as! AddListViewController
         
+        viewController.didSaveList = { [weak self] todoList in
+            self?.dataSource.insert(todoList, at: 0)
+            self?.tableView.reloadData()
+        }
+        
         present(viewController, animated: true)
     }
 }
@@ -98,7 +103,7 @@ class MyTodosViewController: UIViewController {
 extension MyTodosViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        lists.count
+        dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,7 +111,7 @@ extension MyTodosViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell") as? TodoListCell
         else { return UITableViewCell() }
         
-        let todoList = lists[indexPath.row]
+        let todoList = dataSource[indexPath.row]
         
         cell.configure(with: todoList)
         cell.selectionStyle = .none
@@ -118,7 +123,7 @@ extension MyTodosViewController: UITableViewDataSource {
 extension MyTodosViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let todoList = lists[indexPath.row]
+        let todoList = dataSource[indexPath.row]
         present(with: todoList)
     }
 }

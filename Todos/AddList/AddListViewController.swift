@@ -10,6 +10,8 @@ class AddListViewController: UIViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var saveBtnBottomContraint: NSLayoutConstraint!
     
+    var didSaveList: ((TodoList) -> Void)?
+    
     private var colors: [UIColor] = []
     private var selectedColor: UIColor = .clear
     
@@ -23,11 +25,37 @@ class AddListViewController: UIViewController {
         saveBtn.setCornerRadius(14)
         
         fillColors()
+        fillIcons()
+        
+        configureTextField()
         configureTableView()
         setSelectedColor(.greenTodo, animated: true)
+        setSelectedIcon(.avocadoIcon, animated: false)
+        setSaveButtton(enabled: false)
         
         subscribeToKeyboard()
         setupHideKeyboardGesture()
+    }
+    
+    private var isDataValid: Bool {
+        guard let text = textField.text else { return false }
+        
+        return text.count >= 3
+    }
+    
+    private func configureTextField() {
+        textField.addTarget(self, action: #selector(didChangeText), for: .editingChanged)
+    }
+    
+    @objc private func didChangeText() {
+        setSaveButtton(enabled: isDataValid)
+    }
+    
+    private func setSaveButtton(enabled isEnabled: Bool) {
+        saveBtn.isUserInteractionEnabled = isEnabled
+        
+        saveBtn.tintColor = isEnabled ? .white : .accent
+        saveBtn.backgroundColor = isEnabled ? .accent : UIColor.accent.withAlphaComponent(0.15)
     }
     
     private func fillColors() {
@@ -41,6 +69,16 @@ class AddListViewController: UIViewController {
         ]
     }
     
+    private func fillIcons() {
+        self.icons = [
+            .avocadoIcon,
+            .vacationIcon,
+            .rocketIcon,
+            .choresIcon,
+            .soccerIcon
+        ]
+    }
+    
     private func setSelectedColor(_ color: UIColor, animated: Bool) {
         self.selectedColor = color
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
@@ -51,6 +89,19 @@ class AddListViewController: UIViewController {
             }
         } else {
             headerView.backgroundColor = color
+        }
+    }
+    
+    private func setSelectedIcon(_ icon: UIImage, animated: Bool) {
+        self.selectedIcon = icon
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .none)
+        
+        if animated {
+            UIView.animate(withDuration: 0.25) {
+                self.iconImageView.image = icon
+            }
+        } else {
+            self.iconImageView.image = icon
         }
     }
     
@@ -119,6 +170,18 @@ class AddListViewController: UIViewController {
     }
     
     @IBAction func saveBtn(_ sender: Any) {
+        guard isDataValid, let text = textField.text else { return }
+        
+        let todoList = TodoList(
+            title: text.trimmingCharacters(in: .whitespacesAndNewlines),
+            image: selectedIcon,
+            color: selectedColor,
+            items: []
+        )
+        
+        didSaveList?(todoList)
+        
+        self.dismiss(animated: true)
     }
 }
 
@@ -148,6 +211,9 @@ extension AddListViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddTodoListIconPickerCell") as? AddTodoListIconPickerCell else { return UITableViewCell() }
             
             cell.configure(with: icons, selectedIcon: selectedIcon)
+            cell.didSelectIcon = { [weak self] selectedIcon in
+                self?.setSelectedIcon(selectedIcon, animated: true)
+            }
             
             return cell
         }
