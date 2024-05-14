@@ -28,6 +28,7 @@
 		AEE1E8122BE39DFA0054FA50 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AEE1E8112BE39DFA0054FA50 /* Base */; };
 		AEE1E81A2BE39E280054FA50 /* MyTodosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1E8192BE39E280054FA50 /* MyTodosViewController.swift */; };
 		AEE1E81C2BE3A3900054FA50 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1E81B2BE3A3900054FA50 /* TodoListViewController.swift */; };
+		AEFD4C162BF3654400CBA2EB /* UIView+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD4C152BF3654400CBA2EB /* UIView+CornerRadius.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		AEE1E8132BE39DFA0054FA50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEE1E8192BE39E280054FA50 /* MyTodosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodosViewController.swift; sourceTree = "<group>"; };
 		AEE1E81B2BE3A3900054FA50 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		AEFD4C152BF3654400CBA2EB /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadius.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				AE9322302BED6D93004CB1E7 /* UIColor+hex.swift */,
+				AEFD4C152BF3654400CBA2EB /* UIView+CornerRadius.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				AE51AFF12BEBB76E00108FF2 /* AddTodoListColorPickerCell.swift in Sources */,
 				AE9322312BED6D93004CB1E7 /* UIColor+hex.swift in Sources */,
 				AEE1E8082BE39DF90054FA50 /* SceneDelegate.swift in Sources */,
+				AEFD4C162BF3654400CBA2EB /* UIView+CornerRadius.swift in Sources */,
 				AE93222A2BED6AD3004CB1E7 /* IconOptionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

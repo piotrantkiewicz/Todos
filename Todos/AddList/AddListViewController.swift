@@ -37,6 +37,10 @@ class AddListViewController: UIViewController {
         setupHideKeyboardGesture()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private var isDataValid: Bool {
         guard let text = textField.text else { return false }
         

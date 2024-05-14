@@ -137,24 +137,97 @@
                                 <rect key="frame" x="0.0" y="146" width="393" height="706"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEE-3M-1kW">
+                                <rect key="frame" x="0.0" y="766" width="393" height="86"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pM-Oq-9ga">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="52"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqz-Hf-Q4j">
+                                                <rect key="frame" x="4" y="4" width="44" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="Ifj-c6-btG"/>
+                                                    <constraint firstAttribute="width" constant="44" id="KeH-Go-iXs"/>
+                                                </constraints>
+                                                <color key="tintColor" name="accentColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="plus.circle.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="plusBtnTapped:" destination="4zy-8i-akJ" eventType="touchUpInside" id="Z90-3z-O65"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add New Item" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VJd-cj-TdD">
+                                                <rect key="frame" x="48" y="15.666666666666629" width="285" height="21"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SoC-HB-iCV">
+                                                <rect key="frame" x="333" y="4" width="56" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="56" id="23K-sw-C0L"/>
+                                                    <constraint firstAttribute="height" constant="44" id="cL3-s7-POJ"/>
+                                                </constraints>
+                                                <color key="tintColor" name="accentColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Add">
+                                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="addBtnTapped:" destination="4zy-8i-akJ" eventType="touchUpInside" id="GEf-tA-WIz"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="VJd-cj-TdD" firstAttribute="leading" secondItem="9pM-Oq-9ga" secondAttribute="leading" constant="48" id="5ck-BO-obZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="SoC-HB-iCV" secondAttribute="trailing" constant="4" id="KAr-xd-vRc"/>
+                                            <constraint firstItem="SoC-HB-iCV" firstAttribute="leading" secondItem="VJd-cj-TdD" secondAttribute="trailing" id="TNm-Sd-UaH"/>
+                                            <constraint firstItem="VJd-cj-TdD" firstAttribute="centerY" secondItem="9pM-Oq-9ga" secondAttribute="centerY" id="bfL-FA-SNn"/>
+                                            <constraint firstItem="Hqz-Hf-Q4j" firstAttribute="centerY" secondItem="9pM-Oq-9ga" secondAttribute="centerY" id="jgC-nK-b0N"/>
+                                            <constraint firstItem="SoC-HB-iCV" firstAttribute="centerY" secondItem="9pM-Oq-9ga" secondAttribute="centerY" id="qEN-lC-zg9"/>
+                                            <constraint firstAttribute="height" constant="52" id="tji-yY-lvL"/>
+                                            <constraint firstItem="Hqz-Hf-Q4j" firstAttribute="leading" secondItem="9pM-Oq-9ga" secondAttribute="leading" constant="4" id="uhc-1D-lsL"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="9pM-Oq-9ga" secondAttribute="trailing" id="ESJ-g3-nSI"/>
+                                    <constraint firstItem="9pM-Oq-9ga" firstAttribute="top" secondItem="uEE-3M-1kW" secondAttribute="top" id="Ugi-S5-yKa"/>
+                                    <constraint firstItem="9pM-Oq-9ga" firstAttribute="leading" secondItem="uEE-3M-1kW" secondAttribute="leading" id="aKh-CN-yNJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6BU-gT-Amn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="seG-IS-deM" firstAttribute="top" secondItem="XR4-uW-XjU" secondAttribute="bottom" id="67N-QU-fp8"/>
+                            <constraint firstItem="uEE-3M-1kW" firstAttribute="trailing" secondItem="6BU-gT-Amn" secondAttribute="trailing" id="BdF-vP-f7m"/>
                             <constraint firstItem="seG-IS-deM" firstAttribute="trailing" secondItem="6BU-gT-Amn" secondAttribute="trailing" id="Frl-ty-7wo"/>
+                            <constraint firstAttribute="bottom" secondItem="uEE-3M-1kW" secondAttribute="bottom" priority="750" id="OgY-7n-kir"/>
                             <constraint firstAttribute="bottom" secondItem="seG-IS-deM" secondAttribute="bottom" id="UZX-im-oIG"/>
                             <constraint firstItem="XR4-uW-XjU" firstAttribute="leading" secondItem="6BU-gT-Amn" secondAttribute="leading" id="dMO-Af-9W1"/>
                             <constraint firstItem="seG-IS-deM" firstAttribute="leading" secondItem="6BU-gT-Amn" secondAttribute="leading" id="gQF-4C-FEX"/>
+                            <constraint firstItem="uEE-3M-1kW" firstAttribute="leading" secondItem="6BU-gT-Amn" secondAttribute="leading" id="hhm-XB-MPx"/>
                             <constraint firstItem="XR4-uW-XjU" firstAttribute="trailing" secondItem="6BU-gT-Amn" secondAttribute="trailing" id="i7Q-zB-6Dy"/>
                             <constraint firstItem="XR4-uW-XjU" firstAttribute="top" secondItem="adM-v4-JZc" secondAttribute="top" id="qeA-t0-n0O"/>
+                            <constraint firstItem="9pM-Oq-9ga" firstAttribute="bottom" secondItem="6BU-gT-Amn" secondAttribute="bottom" id="sSs-Ur-cUd"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addBtn" destination="SoC-HB-iCV" id="Th8-Jx-xfL"/>
+                        <outlet property="addNewItemSafeAreaView" destination="9pM-Oq-9ga" id="GZl-7Y-8Ft"/>
+                        <outlet property="addNewItemSaveAreaViewBottomConstraint" destination="sSs-Ur-cUd" id="ufG-QV-Y0l"/>
+                        <outlet property="addNewItemView" destination="uEE-3M-1kW" id="rZ7-u9-pg5"/>
                         <outlet property="headerView" destination="XR4-uW-XjU" id="dmN-4v-yA6"/>
                         <outlet property="iconImageView" destination="qw5-UW-GxJ" id="5tl-ej-UtX"/>
                         <outlet property="imageBackgroundView" destination="wFL-QG-hUI" id="keN-Zf-YRz"/>
+                        <outlet property="plusBtn" destination="Hqz-Hf-Q4j" id="0XN-cp-uvO"/>
                         <outlet property="tableView" destination="seG-IS-deM" id="Xvm-zC-sqg"/>
+                        <outlet property="tableViewBottomConstraint" destination="UZX-im-oIG" id="3Us-H5-SZ4"/>
+                        <outlet property="textField" destination="VJd-cj-TdD" id="HC8-qL-J1g"/>
+                        <outlet property="textFieldLeftConstraint" destination="5ck-BO-obZ" id="Jaz-cH-wfK"/>
                         <outlet property="titleLbl" destination="ZNp-EF-kwX" id="OYb-lm-avF"/>
                     </connections>
                 </viewController>
@@ -212,6 +285,7 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter the list name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l2M-ib-OI5">
                                         <rect key="frame" x="68" y="91" width="309" height="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
@@ -293,10 +367,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
