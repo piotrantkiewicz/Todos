@@ -134,7 +134,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="seG-IS-deM">
-                                <rect key="frame" x="0.0" y="146" width="393" height="706"/>
+                                <rect key="frame" x="0.0" y="146" width="393" height="620"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEE-3M-1kW">
@@ -206,7 +206,7 @@
                             <constraint firstItem="uEE-3M-1kW" firstAttribute="trailing" secondItem="6BU-gT-Amn" secondAttribute="trailing" id="BdF-vP-f7m"/>
                             <constraint firstItem="seG-IS-deM" firstAttribute="trailing" secondItem="6BU-gT-Amn" secondAttribute="trailing" id="Frl-ty-7wo"/>
                             <constraint firstAttribute="bottom" secondItem="uEE-3M-1kW" secondAttribute="bottom" priority="750" id="OgY-7n-kir"/>
-                            <constraint firstAttribute="bottom" secondItem="seG-IS-deM" secondAttribute="bottom" id="UZX-im-oIG"/>
+                            <constraint firstItem="uEE-3M-1kW" firstAttribute="top" secondItem="seG-IS-deM" secondAttribute="bottom" id="aEO-Xj-j9Z"/>
                             <constraint firstItem="XR4-uW-XjU" firstAttribute="leading" secondItem="6BU-gT-Amn" secondAttribute="leading" id="dMO-Af-9W1"/>
                             <constraint firstItem="seG-IS-deM" firstAttribute="leading" secondItem="6BU-gT-Amn" secondAttribute="leading" id="gQF-4C-FEX"/>
                             <constraint firstItem="uEE-3M-1kW" firstAttribute="leading" secondItem="6BU-gT-Amn" secondAttribute="leading" id="hhm-XB-MPx"/>
@@ -225,7 +225,6 @@
                         <outlet property="imageBackgroundView" destination="wFL-QG-hUI" id="keN-Zf-YRz"/>
                         <outlet property="plusBtn" destination="Hqz-Hf-Q4j" id="0XN-cp-uvO"/>
                         <outlet property="tableView" destination="seG-IS-deM" id="Xvm-zC-sqg"/>
-                        <outlet property="tableViewBottomConstraint" destination="UZX-im-oIG" id="3Us-H5-SZ4"/>
                         <outlet property="textField" destination="VJd-cj-TdD" id="HC8-qL-J1g"/>
                         <outlet property="textFieldLeftConstraint" destination="5ck-BO-obZ" id="Jaz-cH-wfK"/>
                         <outlet property="titleLbl" destination="ZNp-EF-kwX" id="OYb-lm-avF"/>

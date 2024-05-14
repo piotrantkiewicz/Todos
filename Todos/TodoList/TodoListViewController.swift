@@ -4,13 +4,19 @@ struct TodoList {
     let title: String
     let image: UIImage
     let color: UIColor
-    let items: [String]
+    var items: [String]
+    
+    init(title: String, image: UIImage, color: UIColor, items: [String]) {
+        self.title = title
+        self.image = image
+        self.color = color
+        self.items = items
+    }
 }
 
 class TodoListViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var titleLbl: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var imageBackgroundView: UIView!
@@ -35,10 +41,31 @@ class TodoListViewController: UIViewController {
         configureTableView()
         configureKeyboard()
         configureAddItemView()
+        configureTextField()
+        
+        setAddNewItemButton(enabled: false)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func configureTextField() {
+        textField.addTarget(self, action: #selector(didChangeText), for: .editingChanged)
+    }
+    
+    private var isNewItemValid: Bool {
+        guard let text = textField.text else { return false }
+        return !text.isEmpty
+    }
+    
+    @objc private func didChangeText() {
+        setAddNewItemButton(enabled: isNewItemValid)
+    }
+    
+    private func setAddNewItemButton(enabled isEnabled:Bool) {
+        addBtn.isPointerInteractionEnabled = isEnabled
+        addBtn.tintColor = isEnabled ? .accent : UIColor(hex: "#737373")?.withAlphaComponent(0.5)
     }
     
     private func configureAddItemView() {
@@ -86,11 +113,9 @@ class TodoListViewController: UIViewController {
         
         if isKeyboardHidden {
             addNewItemSaveAreaViewBottomConstraint.constant = 0
-            tableViewBottomConstraint.constant = 0
             textFieldLeftConstraint.constant = 48
         } else {
             addNewItemSaveAreaViewBottomConstraint.constant = -endFrame.height + view.safeAreaInsets.bottom - 8
-            tableViewBottomConstraint.constant = endFrame.height + 8 + addNewItemSafeAreaView.frame.height
             textFieldLeftConstraint.constant = 16
         }
         
@@ -123,6 +148,17 @@ class TodoListViewController: UIViewController {
     }
     
     @IBAction func addBtnTapped(_ sender: Any) {
+        guard isNewItemValid, let text = textField.text else { return }
+        
+        let itemTrimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        todoList.items.append(itemTrimmed)
+        
+        let indexPath = IndexPath(row: todoList.items.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        
+        textField.text = ""
+        setAddNewItemButton(enabled: false)
     }
 }
 
