@@ -1,19 +1,54 @@
 import UIKit
 
+class MyTodosViewModel {
+    
+    private let repository: TodoListRepository
+    
+    var todoLists: [TodoList] = []
+    
+    var didFetchLists: (() -> ())
+    
+    init(repository: TodoListRepository = TodoListRepository(), didFetchLists: @escaping (() -> ())) {
+        self.repository = repository
+        self.didFetchLists = didFetchLists
+    }
+    
+    func fetchTodos() {
+        Task {
+            do {
+                let result = try await repository.fetchTodoLists()
+                self.todoLists = result
+                
+                await MainActor.run {
+                    self.didFetchLists()
+                }
+                
+            } catch {
+                print(error)
+            }
+        }
+    }
+}
+
 class MyTodosViewController: UIViewController {
     
     @IBOutlet weak var addListBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var dataSource: [TodoList] = []
+    private lazy var viewModel = MyTodosViewModel(
+        didFetchLists:  { [weak self] in
+            self?.tableView.reloadData()
+        }
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addListBtn.setCornerRadius(14)
-        
-        dataSource = myTodoList()
+
         configureTableView()
+        
+        viewModel.fetchTodos()
     }
     
     func configureTableView() {
@@ -32,67 +67,13 @@ class MyTodosViewController: UIViewController {
         
         present(todoListViewController, animated: true)
     }
-    
-    private func myTodoList() -> [TodoList] {
-        var lists = [TodoList]()
-        
-        lists.append(TodoList(
-            title: "Groceries",
-            image: .avocadoIcon,
-            color: .greenTodo,
-            items: groceriesItems()
-        ))
-        
-        lists.append(TodoList(
-            title: "Vacation",
-            image: .vacationIcon,
-            color: .redTodo,
-            items: vacationItems()
-        ))
-        
-        lists.append(TodoList(
-            title: "House Chores",
-            image: .choresIcon,
-            color: .blueTodo,
-            items: choresItems()
-        ))
-        
-        return lists
-    }
-    
-    private func groceriesItems() -> [String] {
-        var items = [String]()
-        items.append("Whole wheat bread")
-        items.append("Almond milk")
-        items.append("Eggs")
-        items.append("Beans")
-        
-        return items
-    }
-    
-    private func vacationItems() -> [String] {
-        var list = [String]()
-        list.append("Check weather")
-        list.append("Accommodation")
-        
-        return list
-    }
-    
-    private func choresItems() -> [String] {
-        var list = [String]()
-        list.append("Vacuum the living room")
-        list.append("Clean windows in the dining area")
-        list.append("Mop kitchen floors")
-        
-        return list
-    }
 
     @IBAction func addTapped(_ sender: Any) {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "AddListViewController") as! AddListViewController
         
         viewController.didSaveList = { [weak self] todoList in
-            self?.dataSource.insert(todoList, at: 0)
+            self?.viewModel.todoLists.insert(todoList, at: 0)
             self?.tableView.reloadData()
         }
         
@@ -103,7 +84,7 @@ class MyTodosViewController: UIViewController {
 extension MyTodosViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count
+        viewModel.todoLists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,7 +92,7 @@ extension MyTodosViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell") as? TodoListCell
         else { return UITableViewCell() }
         
-        let todoList = dataSource[indexPath.row]
+        let todoList = viewModel.todoLists[indexPath.row]
         
         cell.configure(with: todoList)
         cell.selectionStyle = .none
@@ -123,7 +104,7 @@ extension MyTodosViewController: UITableViewDataSource {
 extension MyTodosViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let todoList = dataSource[indexPath.row]
+        let todoList = viewModel.todoLists[indexPath.row]
         present(with: todoList)
     }
 }
