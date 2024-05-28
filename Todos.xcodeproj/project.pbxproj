@@ -29,6 +29,7 @@
 		AEE1E81A2BE39E280054FA50 /* MyTodosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1E8192BE39E280054FA50 /* MyTodosViewController.swift */; };
 		AEE1E81C2BE3A3900054FA50 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1E81B2BE3A3900054FA50 /* TodoListViewController.swift */; };
 		AEFD4C162BF3654400CBA2EB /* UIView+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD4C152BF3654400CBA2EB /* UIView+CornerRadius.swift */; };
+		AEFDD45D2C05D7C10045C5AE /* TodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFDD45C2C05D7C10045C5AE /* TodoListRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		AEE1E8192BE39E280054FA50 /* MyTodosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodosViewController.swift; sourceTree = "<group>"; };
 		AEE1E81B2BE3A3900054FA50 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		AEFD4C152BF3654400CBA2EB /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadius.swift"; sourceTree = "<group>"; };
+		AEFDD45C2C05D7C10045C5AE /* TodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 		AEE1E8042BE39DF90054FA50 /* Todos */ = {
 			isa = PBXGroup;
 			children = (
+				AEFDD45B2C05D7AB0045C5AE /* Networking */,
 				AE93222C2BED6CB9004CB1E7 /* Util */,
 				AE34891F2BEA3367003EFE4B /* AddList */,
 				AE34891E2BEA334A003EFE4B /* TodoList */,
@@ -193,6 +196,14 @@
 				AEE1E8132BE39DFA0054FA50 /* Info.plist */,
 			);
 			path = Todos;
+			sourceTree = "<group>";
+		};
+		AEFDD45B2C05D7AB0045C5AE /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				AEFDD45C2C05D7C10045C5AE /* TodoListRepository.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE9322252BED6986004CB1E7 /* AddTodoListIconPickerCell.swift in Sources */,
+				AEFDD45D2C05D7C10045C5AE /* TodoListRepository.swift in Sources */,
 				AEE1E81C2BE3A3900054FA50 /* TodoListViewController.swift in Sources */,
 				AEDC7DE82BE4D07100FA7D2B /* TodoListCell.swift in Sources */,
 				AE3489212BEA337D003EFE4B /* AddListViewController.swift in Sources */,
