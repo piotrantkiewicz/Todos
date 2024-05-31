@@ -1,35 +1,5 @@
 import UIKit
 
-class MyTodosViewModel {
-    
-    private let repository: TodoListRepository
-    
-    var todoLists: [TodoList] = []
-    
-    var didFetchLists: (() -> ())
-    
-    init(repository: TodoListRepository = TodoListRepository(), didFetchLists: @escaping (() -> ())) {
-        self.repository = repository
-        self.didFetchLists = didFetchLists
-    }
-    
-    func fetchTodos() {
-        Task {
-            do {
-                let result = try await repository.fetchTodoLists()
-                self.todoLists = result
-                
-                await MainActor.run {
-                    self.didFetchLists()
-                }
-                
-            } catch {
-                print(error)
-            }
-        }
-    }
-}
-
 class MyTodosViewController: UIViewController {
     
     @IBOutlet weak var addListBtn: UIButton!
@@ -73,7 +43,7 @@ class MyTodosViewController: UIViewController {
             .instantiateViewController(withIdentifier: "AddListViewController") as! AddListViewController
         
         viewController.didSaveList = { [weak self] todoList in
-            self?.viewModel.todoLists.insert(todoList, at: 0)
+            self?.viewModel.addTodoList(todoList)
             self?.tableView.reloadData()
         }
         
