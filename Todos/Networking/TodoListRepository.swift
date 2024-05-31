@@ -1,34 +1,31 @@
 import UIKit
 
-struct TodoListDTO: Codable {
-    let color: String
-    let icon: String
-    let title: String
-    let items: [String]
-    
-    init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.color = try container.decode(String.self, forKey: .color)
-        self.icon = try container.decode(String.self, forKey: .icon)
-        self.title = try container.decode(String.self, forKey: .title)
-        self.items = try container.decodeIfPresent([String].self, forKey: .items) ?? []
-    }
-}
-
 class TodoListRepository {
     
     typealias TodoListResponse = [String: TodoListDTO]
     
+    private let todosURL = URL(string: "https://todos-16ed9-default-rtdb.europe-west1.firebasedatabase.app/todos.json")!
+    
     func fetchTodoLists() async throws -> [TodoList] {
-        let url = URL(string: "https://todos-16ed9-default-rtdb.europe-west1.firebasedatabase.app/todos.json")!
         
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: todosURL)
         
         let (data, _) = try await URLSession.shared.data(for: request)
         
         let decoded = try JSONDecoder().decode(TodoListResponse.self, from: data)
         
         return toDomain(decoded)
+    }
+    
+    func addTodoList(_ todoList: TodoList) async throws -> String {
+        var request = URLRequest(url: todosURL)
+        request.httpMethod = "POST"
+        request.httpBody = try JSONEncoder().encode(todoList.toData)
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decoded = try JSONDecoder().decode(AddTodoListResponse.self, from: data)
+        
+        return decoded.name
     }
     
     private func toDomain(_ todoListRespopnse: TodoListResponse) -> [TodoList] {
@@ -46,8 +43,19 @@ extension TodoListDTO {
     var toDomain: TodoList {
         TodoList(
             title: self.title,
-            image: UIImage(named: icon + "Icon") ?? UIImage(),
+            image: icon,
             color: UIColor(hex: color) ?? .clear,
+            items: items
+        )
+    }
+}
+
+extension TodoList {
+    var toData: TodoListDTO {
+        TodoListDTO(
+            color: color.hexString ?? "#FFFFFF",
+            icon: image,
+            title: title,
             items: items
         )
     }

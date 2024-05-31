@@ -4,17 +4,17 @@ class AddTodoListIconPickerCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var icons: [UIImage] = []
-    var selectedIcon: UIImage = UIImage()
+    var icons: [String] = []
+    var selectedIcon: String = String()
     
-    var didSelectIcon: ((UIImage) -> Void)?
+    var didSelectIcon: ((String) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCollectionView()
     }
     
-    func configure(with icons: [UIImage], selectedIcon: UIImage) {
+    func configure(with icons: [String], selectedIcon: String) {
         self.icons = icons
         self.selectedIcon = selectedIcon
         self.collectionView.reloadData()
