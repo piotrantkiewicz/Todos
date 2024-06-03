@@ -10,6 +10,13 @@ class AddListViewController: UIViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var saveBtnBottomContraint: NSLayoutConstraint!
     
+    var todoList = TodoList(
+        title: "",
+        image: "avocado",
+        color: .greenTodo,
+        items: []
+    )
+    
     var didSaveList: ((TodoList) -> Void)?
     
     private var colors: [UIColor] = []
@@ -29,9 +36,10 @@ class AddListViewController: UIViewController {
         
         configureTextField()
         configureTableView()
-        setSelectedColor(.greenTodo, animated: true)
-        setSelectedIcon("avocado", animated: false)
-        setSaveButtton(enabled: false)
+        setSelectedColor(todoList.color, animated: true)
+        setSelectedIcon(todoList.image, animated: false)
+        textField.text = todoList.title
+        setSaveButtton(enabled: isDataValid)
         
         subscribeToKeyboard()
         setupHideKeyboardGesture()
