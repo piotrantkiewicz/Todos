@@ -119,15 +119,29 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8qq-37-VRR">
+                                        <rect key="frame" x="341" y="6" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="Uby-Np-AZs"/>
+                                            <constraint firstAttribute="height" constant="44" id="XGu-Me-7bS"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="more"/>
+                                        <connections>
+                                            <action selector="moreBtnTapped:" destination="4zy-8i-akJ" eventType="touchUpInside" id="dB9-MU-SUK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="8qq-37-VRR" secondAttribute="trailing" constant="8" id="0Cn-It-zh7"/>
                                     <constraint firstItem="ZNp-EF-kwX" firstAttribute="top" secondItem="wFL-QG-hUI" secondAttribute="top" constant="2" id="9GZ-TN-brW"/>
                                     <constraint firstItem="2Hb-54-Gsf" firstAttribute="top" secondItem="ZNp-EF-kwX" secondAttribute="bottom" id="DI9-cE-EaB"/>
                                     <constraint firstItem="t4N-Z7-GbW" firstAttribute="top" secondItem="XR4-uW-XjU" secondAttribute="top" constant="6" id="Fop-OY-79L"/>
                                     <constraint firstItem="wFL-QG-hUI" firstAttribute="leading" secondItem="XR4-uW-XjU" secondAttribute="leading" constant="16" id="GOg-9O-UIx"/>
                                     <constraint firstItem="ZNp-EF-kwX" firstAttribute="leading" secondItem="wFL-QG-hUI" secondAttribute="trailing" constant="12" id="GOm-so-V07"/>
                                     <constraint firstItem="t4N-Z7-GbW" firstAttribute="leading" secondItem="XR4-uW-XjU" secondAttribute="leading" constant="8" id="UPM-TG-052"/>
+                                    <constraint firstItem="8qq-37-VRR" firstAttribute="top" secondItem="XR4-uW-XjU" secondAttribute="top" constant="6" id="ZXd-DW-3Ct"/>
                                     <constraint firstAttribute="height" constant="146" id="i45-5l-jgj"/>
                                     <constraint firstAttribute="bottom" secondItem="wFL-QG-hUI" secondAttribute="bottom" constant="16" id="nn3-cp-SDR"/>
                                     <constraint firstItem="2Hb-54-Gsf" firstAttribute="leading" secondItem="ZNp-EF-kwX" secondAttribute="leading" id="pdd-go-qKD"/>
@@ -357,6 +371,7 @@
     <resources>
         <image name="avocadoIcon" width="20" height="20"/>
         <image name="exit" width="28" height="28"/>
+        <image name="more" width="28" height="28"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="accentColor">
@@ -366,10 +381,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

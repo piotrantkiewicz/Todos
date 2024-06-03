@@ -1,16 +1,47 @@
 import UIKit
 
-struct TodoList {
-    let title: String
-    let image: String
-    let color: UIColor
-    var items: [String]
+class TodoListViewModel {
     
-    init(title: String, image: String, color: UIColor, items: [String]) {
-        self.title = title
-        self.image = image
-        self.color = color
-        self.items = items
+    private let repository: TodoListRepository
+    
+    var todoList: TodoList!
+    
+    init(
+        repository: TodoListRepository = TodoListRepository(),
+        todoList: TodoList!
+    ) {
+        self.repository = repository
+        self.todoList = todoList
+    }
+    
+    func update(with todoList: TodoList) {
+        self.todoList.update(with: todoList)
+        
+        Task {
+            do {
+                try await repository.updateTodoList(self.todoList)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func delete() {
+        Task {
+            do {
+                try await repository.deleteTodoList(with: todoList.id)
+            } catch {
+                print(error)
+            }
+        }
+    }
+}
+
+extension TodoList {
+    mutating func update(with todoList: TodoList) {
+        title = todoList.title
+        color = todoList.color
+        image = todoList.image
     }
 }
 
@@ -30,7 +61,7 @@ class TodoListViewController: UIViewController {
     @IBOutlet weak var textFieldLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var addBtn: UIButton!
     
-    var todoList: TodoList!
+    var viewModel: TodoListViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,9 +165,9 @@ class TodoListViewController: UIViewController {
     }
     
     private func configure() {
-        titleLbl.text = todoList.title
-        iconImageView.image = UIImage(named: todoList.image)
-        headerView.backgroundColor = todoList.color
+        titleLbl.text = viewModel.todoList.title
+        iconImageView.image = UIImage(named: viewModel.todoList.image)
+        headerView.backgroundColor = viewModel.todoList.color
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -151,28 +182,106 @@ class TodoListViewController: UIViewController {
         guard isNewItemValid, let text = textField.text else { return }
         
         let itemTrimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        todoList.items.append(itemTrimmed)
+        viewModel.todoList.items.append(itemTrimmed)
         
-        let indexPath = IndexPath(row: todoList.items.count - 1, section: 0)
+        let indexPath = IndexPath(row: viewModel.todoList.items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
         textField.text = ""
         setAddNewItemButton(enabled: false)
     }
+    
+    @IBAction func moreBtnTapped(_ sender: Any) {
+        let sheet = UIAlertController(
+            title: "More Actions",
+            message: "What do you want to do?",
+            preferredStyle: .actionSheet
+        )
+        
+        sheet.addAction(UIAlertAction(
+            title: "Edit",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.presentEdit()
+            }
+        ))
+        
+        sheet.addAction(UIAlertAction(
+            title: "Delete List",
+            style: .destructive,
+            handler: { [weak self] _ in
+                self?.presentDeletePrompt()
+            }
+        ))
+        
+        sheet.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel
+        ))
+        
+        self.present(sheet, animated: true)
+    }
+    
+    private func presentDeletePrompt() {
+        let alert = UIAlertController(
+            title: "Are you sure?",
+            message: "Deleting the app will forever remove all the items and the list itself",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(
+            title: "Delete",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.deleteListAndDismiss()
+            })
+        )
+        
+        alert.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel
+        ))
+        
+        self.present(alert, animated: true)
+    }
+    
+    private func presentEdit(){
+        let vc = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "AddListViewController") as! AddListViewController
+        
+        vc.todoList = viewModel.todoList
+        
+        vc.didSaveList = {[weak self] todoList in
+            self?.updateList(todoList)
+        }
+
+        self.present(vc, animated: true)
+    }
+    
+    private func updateList(_ todoList: TodoList) {
+        viewModel.update(with: todoList)
+        
+        configure()
+    }
+    
+    private func deleteListAndDismiss() {
+        viewModel.delete()
+        self.dismiss(animated: true)
+    }
 }
 
 extension TodoListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        todoList.items.count
+        viewModel.todoList.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListItemCell") as? TodoListItemCell
         else { return UITableViewCell() }
         
-        let item = todoList.items[indexPath.row]
+        let item = viewModel.todoList.items[indexPath.row]
         cell.configure(with: item)
         
         return cell

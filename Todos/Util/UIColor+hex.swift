@@ -59,4 +59,8 @@ extension UIColor {
             )
         }
     }
+    
+    var hexStringOrWhite: String {
+        hexString ?? "FFFFFF"
+    }
 }
