@@ -17,6 +17,10 @@ class MyTodosViewController: UIViewController {
         addListBtn.setCornerRadius(14)
 
         configureTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         viewModel.fetchTodos()
     }

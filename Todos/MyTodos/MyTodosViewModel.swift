@@ -8,7 +8,7 @@ class MyTodosViewModel {
     
     var didFetchLists: (() -> ())
     
-    init(repository: TodoListRepository = TodoListRepository(), didFetchLists: @escaping (() -> ())) {
+    init(repository: TodoListRepository = TodoListRepositoryLive(), didFetchLists: @escaping (() -> ())) {
         self.repository = repository
         self.didFetchLists = didFetchLists
     }
