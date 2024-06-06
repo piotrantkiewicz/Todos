@@ -1,6 +1,14 @@
 import UIKit
 
-class TodoListRepository {
+protocol TodoListRepository {
+    func fetchTodoLists() async throws -> [TodoList]
+    func addTodoList(_ todoList: TodoList) async throws -> String
+    func updateTodoList(_ todoList: TodoList) async throws
+    func deleteTodoList(with id: String) async throws
+    func addItem(to todoList: TodoList, item: String) async throws
+}
+
+class TodoListRepositoryLive: TodoListRepository {
     
     typealias TodoListResponse = [String: TodoListDTO]
     
@@ -24,7 +32,7 @@ class TodoListRepository {
         request.httpBody = try JSONEncoder().encode(todoList.toData)
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let decoded = try JSONDecoder().decode(AddTodoListResponse.self, from: data)
+        let decoded = try JSONDecoder().decode(DataBasePOSTResponse.self, from: data)
         
         return decoded.name
     }
@@ -67,6 +75,29 @@ class TodoListRepository {
         print("Successfully deleted list with id \(id)")
     }
     
+    func addItem(to todoList: TodoList, item: String) async throws {
+        var request = URLRequest(
+            url: baseURL
+                .appending(path: "todos")
+                .appending(path: todoList.id)
+                .appending(path: "items")
+                .appending(path: ".json")
+        )
+        
+        let item = TodoListDTO.Item(
+            content: item,
+            createDate: Date()
+        )
+        
+        request.httpMethod = "POST"
+        request.httpBody = try JSONEncoder().encode(item)
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decoded = try JSONDecoder().decode(DataBasePOSTResponse.self, from: data)
+        
+        print("Successfully added an item \(decoded.name)")
+    }
+    
     private func toDomain(_ todoListRespopnse: TodoListResponse) -> [TodoList] {
         var result = [TodoList]()
         
@@ -87,7 +118,7 @@ extension TodoListDTO {
             title: self.title,
             image: icon,
             color: UIColor(hex: color) ?? .clear,
-            items: items
+            items: items.toDomain
         )
     }
 }
@@ -98,7 +129,34 @@ extension TodoList {
             color: color.hexStringOrWhite,
             icon: image,
             title: title,
-            items: items
+            items: items.toData
         )
+    }
+}
+
+extension Dictionary where Key == String, Value == TodoListDTO.Item {
+    var toDomain: [TodoListItem] {
+        var todoListItems = [TodoListItem]()
+        for (key, item) in self {
+            let todoListItem = TodoListItem(id: key, content: item.content, createDate: item.createDate)
+            todoListItems.append(todoListItem)
+        }
+        
+        return todoListItems
+            .sorted(by: { $0.createDate < $1.createDate })
+    }
+}
+
+extension Array where Element == TodoListItem {
+    var toData: [String: TodoListDTO.Item] {
+        var dict = [String: TodoListDTO.Item]()
+        
+        for item in self {
+            dict[item.id] = TodoListDTO.Item(
+                content: item.content,
+                createDate: item.createDate)
+        }
+    
+        return dict
     }
 }
