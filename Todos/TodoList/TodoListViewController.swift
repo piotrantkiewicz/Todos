@@ -181,6 +181,11 @@ class TodoListViewController: UIViewController {
         self.present(sheet, animated: true)
     }
     
+    @IBAction func shareBtnTapped(_ sender: Any) {
+        let ac = UIActivityViewController(activityItems: [viewModel.sharedData], applicationActivities: nil)
+        present(ac, animated: true)
+    }
+    
     private func presentDeletePrompt() {
         let alert = UIAlertController(
             title: "Are you sure?",
