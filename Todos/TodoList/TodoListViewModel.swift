@@ -18,6 +18,16 @@ class TodoListViewModel {
         self.todoList = todoList
     }
     
+    var sharedData: String {
+        var data = "\(todoList.title)\n"
+        
+        for item in todoList.items {
+            data.append("- \(item.content)\n")
+        }
+        
+        return data
+    }
+    
     func update(with todoList: TodoList) {
         self.todoList.update(with: todoList)
         

@@ -131,6 +131,18 @@
                                             <action selector="moreBtnTapped:" destination="4zy-8i-akJ" eventType="touchUpInside" id="dB9-MU-SUK"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4E-kg-TsG">
+                                        <rect key="frame" x="297" y="6" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="ClB-bU-Wrd"/>
+                                            <constraint firstAttribute="height" constant="44" id="DDi-r3-QeO"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="share"/>
+                                        <connections>
+                                            <action selector="shareBtnTapped:" destination="4zy-8i-akJ" eventType="touchUpInside" id="ftY-lg-sBK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
@@ -140,9 +152,11 @@
                                     <constraint firstItem="t4N-Z7-GbW" firstAttribute="top" secondItem="XR4-uW-XjU" secondAttribute="top" constant="6" id="Fop-OY-79L"/>
                                     <constraint firstItem="wFL-QG-hUI" firstAttribute="leading" secondItem="XR4-uW-XjU" secondAttribute="leading" constant="16" id="GOg-9O-UIx"/>
                                     <constraint firstItem="ZNp-EF-kwX" firstAttribute="leading" secondItem="wFL-QG-hUI" secondAttribute="trailing" constant="12" id="GOm-so-V07"/>
+                                    <constraint firstItem="8qq-37-VRR" firstAttribute="top" secondItem="L4E-kg-TsG" secondAttribute="top" id="Sag-cl-ofz"/>
                                     <constraint firstItem="t4N-Z7-GbW" firstAttribute="leading" secondItem="XR4-uW-XjU" secondAttribute="leading" constant="8" id="UPM-TG-052"/>
                                     <constraint firstItem="8qq-37-VRR" firstAttribute="top" secondItem="XR4-uW-XjU" secondAttribute="top" constant="6" id="ZXd-DW-3Ct"/>
                                     <constraint firstAttribute="height" constant="146" id="i45-5l-jgj"/>
+                                    <constraint firstItem="8qq-37-VRR" firstAttribute="leading" secondItem="L4E-kg-TsG" secondAttribute="trailing" id="mBR-TQ-hBO"/>
                                     <constraint firstAttribute="bottom" secondItem="wFL-QG-hUI" secondAttribute="bottom" constant="16" id="nn3-cp-SDR"/>
                                     <constraint firstItem="2Hb-54-Gsf" firstAttribute="leading" secondItem="ZNp-EF-kwX" secondAttribute="leading" id="pdd-go-qKD"/>
                                 </constraints>
@@ -374,6 +388,7 @@
         <image name="more" width="28" height="28"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="share" width="28" height="28"/>
         <namedColor name="accentColor">
             <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
