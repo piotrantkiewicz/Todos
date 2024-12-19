@@ -10,8 +10,13 @@ class AddListViewController: UIViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var saveBtnBottomContraint: NSLayoutConstraint!
     
+    var didSaveList: ((TodoList) -> Void)?
+    
     private var colors: [UIColor] = []
     private var selectedColor: UIColor = .clear
+    
+    private var icons = [UIImage]()
+    private var selectedIcon = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +25,37 @@ class AddListViewController: UIViewController {
         saveBtn.setCornerRadius(14)
         
         fillColors()
+        fillIcons()
+        
+        configureTextField()
         configureTableView()
         setSelectedColor(.greenTodo, animated: true)
+        setSelectedIcon(.avocadoIcon, animated: false)
+        setSaveButtton(enabled: false)
         
         subscribeToKeyboard()
         setupHideKeyboardGesture()
+    }
+    
+    private var isDataValid: Bool {
+        guard let text = textField.text else { return false }
+        
+        return text.count >= 3
+    }
+    
+    private func configureTextField() {
+        textField.addTarget(self, action: #selector(didChangeText), for: .editingChanged)
+    }
+    
+    @objc private func didChangeText() {
+        setSaveButtton(enabled: isDataValid)
+    }
+    
+    private func setSaveButtton(enabled isEnabled: Bool) {
+        saveBtn.isUserInteractionEnabled = isEnabled
+        
+        saveBtn.tintColor = isEnabled ? .white : .accent
+        saveBtn.backgroundColor = isEnabled ? .accent : UIColor.accent.withAlphaComponent(0.15)
     }
     
     private func fillColors() {
@@ -35,6 +66,16 @@ class AddListViewController: UIViewController {
             .blueTodo,
             .purpleTodo,
             .pinkTodo
+        ]
+    }
+    
+    private func fillIcons() {
+        self.icons = [
+            .avocadoIcon,
+            .vacationIcon,
+            .rocketIcon,
+            .choresIcon,
+            .soccerIcon
         ]
     }
     
@@ -51,9 +92,23 @@ class AddListViewController: UIViewController {
         }
     }
     
+    private func setSelectedIcon(_ icon: UIImage, animated: Bool) {
+        self.selectedIcon = icon
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .none)
+        
+        if animated {
+            UIView.animate(withDuration: 0.25) {
+                self.iconImageView.image = icon
+            }
+        } else {
+            self.iconImageView.image = icon
+        }
+    }
+    
     private func configureTableView() {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "AddTodoListColorPickerCell", bundle: nil), forCellReuseIdentifier: "AddTodoListColorPickerCell")
+        tableView.register(UINib(nibName: "AddTodoListIconPickerCell", bundle: nil), forCellReuseIdentifier: "AddTodoListIconPickerCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -115,24 +170,55 @@ class AddListViewController: UIViewController {
     }
     
     @IBAction func saveBtn(_ sender: Any) {
+        guard isDataValid, let text = textField.text else { return }
+        
+        let todoList = TodoList(
+            title: text.trimmingCharacters(in: .whitespacesAndNewlines),
+            image: selectedIcon,
+            color: selectedColor,
+            items: []
+        )
+        
+        didSaveList?(todoList)
+        
+        self.dismiss(animated: true)
     }
 }
 
 extension AddListViewController: UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddTodoListColorPickerCell") as? AddTodoListColorPickerCell else { return UITableViewCell() }
-        
-        cell.configure(with: colors, selectedColor: selectedColor)
-        cell.didSelectColor = { [weak self] selectedColor in
-            self?.setSelectedColor(selectedColor, animated: true)
+       
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddTodoListColorPickerCell") as? AddTodoListColorPickerCell else { return UITableViewCell() }
+            
+            cell.configure(with: colors, selectedColor: selectedColor)
+            cell.didSelectColor = { [weak self] selectedColor in
+                self?.setSelectedColor(selectedColor, animated: true)
+            }
+            
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddTodoListIconPickerCell") as? AddTodoListIconPickerCell else { return UITableViewCell() }
+            
+            cell.configure(with: icons, selectedIcon: selectedIcon)
+            cell.didSelectIcon = { [weak self] selectedIcon in
+                self?.setSelectedIcon(selectedIcon, animated: true)
+            }
+            
+            return cell
         }
         
-        return cell
+
     }
 }
 
